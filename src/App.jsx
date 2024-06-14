@@ -1,33 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import axios from 'axios'
+import { useState, useEffect } from 'react'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+const api = axios.create({
+    baseURL: "https://pokeapi.co/api/v2/pokemon"
+  });
 
+function App() {
+  const [poke, setPoke] = useState([]);
+  
+  
+  useEffect(()=>{
+    async function fetchData() {
+      api.get('?offset=0&limit=20').then((response) => {
+        setPoke(response.data.results)
+        console.log(response.data)
+        
+     });
+    };
+    fetchData();
+    console.log(poke);  
+  }, []);
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className='app'>
+        <h2>pokemons</h2>
+        {poke.map((pok) => {
+          return (
+            <div className='pokemon-id' key={pok.name}>
+              <h1 className='pokemon-name'>{pok.name}</h1>
+              <p className='pokemon-url'>{pok.url}</p>
+            </div>
+          );
+        })}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
