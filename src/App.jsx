@@ -2,20 +2,29 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import { fetchData } from './pokemonService';
 import PokemonList from './PokemonList';
-import NextPage, { offset } from './nextPage';
-import { PreviousPage } from './nextPage';
 function App() {
   const [poke, setPoke] = useState([]);
+  const [offset, setoffset] = useState(0);
 
+  function nextPage() {
+    setoffset(offset+20);
+    console.log(offset);
+  };
+
+  function previousPage() {
+    if(offset>0){
+      setoffset(offset-20);
+    };
+  };
   useEffect(() => {
-    fetchData().then((pokemonData) => setPoke(pokemonData));
-  }, [{offset}]);
+    fetchData(offset).then((pokemonData) => setPoke(pokemonData));
+  }, [offset]);
   
   return (
     <>
       <PokemonList pokemon={poke} />
-      <button onClick={NextPage}>Next page</button>
-      <button onClick={PreviousPage}>Previous Page</button>
+      <button onClick={nextPage}>Next page</button>
+      <button onClick={previousPage}>Previous Page</button>
     </>
   )
 }
