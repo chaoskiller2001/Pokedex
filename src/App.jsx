@@ -1,33 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
 import './App.css'
-
+import { fetchData } from './pokemonService';
+import PokemonList from './PokemonList';
 function App() {
-  const [count, setCount] = useState(0)
+  const [poke, setPoke] = useState([]);
+  const [offset, setoffset] = useState(0);
 
+  function nextPage() {
+    setoffset(offset+20);
+    console.log(offset);
+  };
+
+  function previousPage() {
+    if(offset>0){
+      setoffset(offset-20);
+    };
+  };
+  useEffect(() => {
+    fetchData(offset).then((pokemonData) => setPoke(pokemonData));
+  }, [offset]);
+  
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <PokemonList pokemon={poke} />
+      <button onClick={nextPage}>Next page</button>
+      <button onClick={previousPage}>Previous Page</button>
     </>
   )
 }
