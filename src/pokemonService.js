@@ -12,6 +12,5 @@ export async function fetchData(offset) {
 
 export async function fetchDetails(name) {
     const response = await api.get(`/${name}`);
-    console.log(response)
     return response.data
 };
