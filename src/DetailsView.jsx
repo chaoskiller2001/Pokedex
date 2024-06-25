@@ -15,7 +15,7 @@ function DetailsView() {
     console.log(pokemDetails);
 
     return <>
-        <Link id="123" to="/">Back to list</Link>
+        <Link to="/">Back to list</Link>
         <h1>{name}</h1>
         <h2>height: {pokemDetails.height}</h2>
         <h2>weight: {pokemDetails.weight}</h2>
