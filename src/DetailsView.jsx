@@ -12,7 +12,6 @@ function DetailsView() {
         fetchDetails(name).then((pokemonDetails) => setPokeDetails(pokemonDetails))
         fetchDetails(name).then((pokemonDetails) => setPokeStats(pokemonDetails.stats))
     }, [])
-    console.log(pokemDetails);
 
     return <>
         <Link to="/">Back to list</Link>
