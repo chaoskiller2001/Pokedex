@@ -9,3 +9,8 @@ export async function fetchData(offset) {
     const response = await api.get(`?offset=${offset}&limit=20`);
     return response.data.results
 };
+
+export async function fetchDetails(name) {
+    const response = await api.get(`/${name}`);
+    return response.data
+};
