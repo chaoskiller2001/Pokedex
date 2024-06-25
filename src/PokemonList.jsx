@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 export default function PokemonList(props) {
     const poke = props.pokemon;
 
@@ -7,7 +5,7 @@ export default function PokemonList(props) {
         {poke.map((pok) => {
         return (
           <div className='pokemon-id' key={pok.name}>
-            <Link className='pokemon-url' to={`details/${pok.name}`}>{pok.name}</Link>
+            <a className='pokemon-url' href={pok.url}>{pok.name}</a>
           </div>
         );
       })}
