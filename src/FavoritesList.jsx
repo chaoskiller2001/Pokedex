@@ -7,16 +7,21 @@ export default function FavoritesList() {
   favoritesSet = new Set(favoritesArray);
   let arrayFromSet = Array.from(favoritesSet);
 
+  function removeFavorite(props) {
+    localStorage.removeItem(props);
+  }
+
   return (
     <>
       <Link to={"/"}>Back to list</Link>
       <ul>
-        {arrayFromSet.map((names) => {
+        {arrayFromSet.map((pokemonName) => {
           return (
-            <div className="pokemon-id" key={names}>
-              <Link className="pokemon-url" to={`/details/${names}`}>
-                {names}
+            <div className="pokemon-id" key={pokemonName}>
+              <Link className="pokemon-url" to={`/details/${pokemonName}`}>
+                {pokemonName}
               </Link>
+              <button onClick={removeFavorite(pokemonName)}>remove Favorite</button>
             </div>
           );
         })}
